@@ -6,18 +6,6 @@
 
 The Live Enhancement Suite is a self-managing compiled [AutoHotKey](https://www.autohotkey.com/) script. At its core, is a script that uses the power to AutoHotKey to enhance your Ableton Live experience. 
 
-## What are all these files?
-
-| Name                                                 | Purpose                                                      |
-| ---------------------------------------------------- | ------------------------------------------------------------ |
-| `LiveEnhancementSuite.ahk`                           | The heart of LES, this is the actual AutoHotKey script that drives the Live Enhancement Suite |
-| `MenuIndex.ahk`                                      | This is menu index file that assists `LiveEnhancementSuite.ahk` |
-| `MIndexGen.ahk`                                      | This is the file that used to generate `MenuIndex.ahk`       |
-| `menuconfig.ini`                                     | The default menu configuration file that is placed in every new LES install |
-| `settings.ini`                                       | The default settings file that is placed in every new LES install |
-| `logos\`                                             | The folder that contains all logos for the Live Enhancement Suite (with different colors for developer releases and stable releases) |
-| *Everything Else that isn't GitHub related or legal* | Just some little fun                                         |
-
 ## Sounds cool, how can I help?
 
 * Read our [Code of Conduct](https://github.com/LiveEnhancementSuite/LESforMacOS/blob/master/CODE_OF_CONDUCT.md) and get started contributing to the Live Enhancement Suite
@@ -31,7 +19,7 @@ The Live Enhancement Suite is a self-managing compiled [AutoHotKey](https://www.
 
 * Go to the folder of the repository `cd LESforWindows`
 
-* Run the AutoHotKey compiler `C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe /in LiveEnhancementSuite.ahk /out "Live Enhancement Suite.exe"`
+* Run the AutoHotKey compiler `"C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" /in script\Main.ahk /out "Live Enhancement Suite.exe" /icon script\resources\les_icon.ico`
 
   ***Sidenote: If you are trying to debug the LiveEnhancementSuite script, you may run it as a normal AutoHotKey script, building is generally reserved for releases***
 

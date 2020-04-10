@@ -14,7 +14,7 @@ jobs:
         curl https://autohotkey.com/download/ahk.zip -o ahk.zip
         powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('ahk.zip', 'AutoHotKey'); }"
     - name: Run AutoHotKey compiler to generate binary
-      run:  .\AutoHotKey\Compiler\Ahk2Exe.exe /in LiveEnhancementSuite.ahk /out "Live Enhancement Suite.exe" /icon resources\les_icon.ico
+      run:  .\AutoHotKey\Compiler\Ahk2Exe.exe /in script\Main.ahk /out "Live Enhancement Suite.exe" /icon script\resources\les_icon.ico
     - name: Install Inno Setup 6.0.4 for Installer Creation
       run: |
         curl http://files.jrsoftware.org/is/6/innosetup-6.0.4.exe -o innosetup-6.0.4.exe

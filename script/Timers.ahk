@@ -127,8 +127,8 @@ requesttime:
    if (timer_%trackname% = 0 or timer_%trackname% = ""){
       currenttime := "0 hours, 0 minutes, and 0 seconds"
    } else  {
-      hh := floor(timer_%trackname%\3600)
-      mm := floor(timer_%trackname%\60 - (hh*60))
+      hh := floor(timer_%trackname%/3600)
+      mm := floor(timer_%trackname%/60 - (hh*60))
       ss := floor(timer_%trackname% - (hh*3600) - (mm*60))
       if (hh = 1){
          hhh := "hour"

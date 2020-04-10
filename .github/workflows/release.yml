@@ -1,0 +1,50 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - name: Clone GitHub repository
+      uses: actions/checkout@v2
+    - name: Download and extract AutoHotKey
+      run: |
+        curl https://autohotkey.com/download/ahk.zip -o ahk.zip
+        powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('ahk.zip', 'AutoHotKey'); }"
+    - name: Run AutoHotKey compiler to generate binary
+      run:  .\AutoHotKey\Compiler\Ahk2Exe.exe /in script\Main.ahk /out "Live Enhancement Suite.exe" /icon script\resources\les_icon.ico
+    - name: Install Inno Setup 6.0.4 for Installer Creation
+      run: |
+        curl http://files.jrsoftware.org/is/6/innosetup-6.0.4.exe -o innosetup-6.0.4.exe
+        ./innosetup-6.0.4.exe /VERYSILENT /SUPPRESSMSGBOXES
+    - name: Run Inno Setup script to generate installer
+      run: |
+        $InnoSetupCmdLocation="C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
+        & $InnoSetupCmdLocation /q innoSetupScript.iss
+        CertUtil -hashfile .\Output\LiveEnhancementSuiteSetup-x64.exe SHA256 | Select -SkipLast 1 >> chksm
+        (Get-Content chksm) -join ' ' >> .\Output\CHECKSUM.txt
+        Compress-Archive -LiteralPath .\Output\LiveEnhancementSuiteSetup-x64.exe .\Output\CHECKSUM.txt -DestinationPath .\LiveEnhancementSuiteSetup-x64.zip
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: .\LiveEnhancementSuiteSetup-x64.zip
+        asset_name: LiveEnhancementSuiteSetup-x64.zip
+        asset_content_type: application/zip

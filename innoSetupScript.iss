@@ -24,10 +24,10 @@ DisableProgramGroupPage=yes
 UsedUserAreasWarning=no
 LicenseFile=LICENSE.txt
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
-;PrivilegesRequired=lowest
-PrivilegesRequiredOverridesAllowed=dialog
+PrivilegesRequired=lowest
+;PrivilegesRequiredOverridesAllowed=dialog
 OutputBaseFilename=LiveEnhancementSuiteSetup-x64
-SetupIconFile=resources\les_icon.ico
+SetupIconFile=script\resources\les_icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -51,4 +51,3 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-

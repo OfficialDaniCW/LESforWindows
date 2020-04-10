@@ -222,7 +222,7 @@ createpluginmenu:
       ; I printed out a 4000 line AHK script that's nothing but goto markers with two lines of repeated code each.
       ; None of this code is actually executed unless a menu item is clicked; so I moved it to a library to debloat my code.
       ; I would be greatful if you could figure out a better way to do this, but right now; I'm going to keep sinning. Sinning hard forever.
-      #include MenuIndex.ahk
+      #include validation\MenuIndex.ahk
    }
    klaar:
 Return
