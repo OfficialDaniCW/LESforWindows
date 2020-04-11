@@ -23,13 +23,3 @@ jobs:
       run: |
         $InnoSetupCmdLocation="C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
         & $InnoSetupCmdLocation /q innoSetupScript.iss
-    - name: Copy and prepare for upload
-      run: |
-        mkdir BuildResult
-        copy "Live Enhancement Suite.exe" "BuildResult\Live Enhancement Suite.exe"
-        copy "Output\LiveEnhancementSuiteSetup-x64.exe" BuildResult\LiveEnhancementSuiteSetup-x64.exe
-    - name: Upload binary, installer and checksum as artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: 'Build Result'
-        path: BuildResult\

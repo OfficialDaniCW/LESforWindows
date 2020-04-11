@@ -1,4 +1,4 @@
-![Live Enhancement Suite](https://raw.githubusercontent.com/itsbartsimpson/LESforMacOS/master/Hammerspoon/Images.xcassets/AppIcon.appiconset/icon_256x256.png)
+![Live Enhancement Suite](https://raw.githubusercontent.com/LiveEnhancementSuite/LESforMacOS/master/Hammerspoon/Images.xcassets/AppIcon.appiconset/icon_256x256.png)
 
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FLiveEnhancementSuite%2FLESforWindows%2Fbadge%3Fref%3Dmaster&style=flat)](https://actions-badge.atrox.dev/LiveEnhancementSuite/LESforWindows/goto?ref=master)
 
@@ -9,7 +9,7 @@ The Live Enhancement Suite is a self-managing compiled [AutoHotKey](https://www.
 ## Sounds cool, how can I help?
 
 * Read our [Code of Conduct](https://github.com/LiveEnhancementSuite/LESforMacOS/blob/master/CODE_OF_CONDUCT.md) and get started contributing to the Live Enhancement Suite
-* Dig your pennies from the couch and help fund the development of LES with [PayPal](https://paypal.me/enhancementsuite)
+* Dig some pennies from the couch and help fund the development of LES with [PayPal](https://paypal.me/enhancementsuite)
 
 ## How do I build this thing?
 

@@ -21,30 +21,31 @@ jobs:
       run: |
         curl http://files.jrsoftware.org/is/6/innosetup-6.0.4.exe -o innosetup-6.0.4.exe
         ./innosetup-6.0.4.exe /VERYSILENT /SUPPRESSMSGBOXES
-    - name: Run Inno Setup script to generate installer
+    - name: Run Inno Setup script and generate checksums
       run: |
         $InnoSetupCmdLocation="C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
         & $InnoSetupCmdLocation /q innoSetupScript.iss
         CertUtil -hashfile .\Output\LiveEnhancementSuiteSetup-x64.exe SHA256 | Select -SkipLast 1 >> chksm
         (Get-Content chksm) -join ' ' >> .\Output\CHECKSUM.txt
-        Compress-Archive -LiteralPath .\Output\LiveEnhancementSuiteSetup-x64.exe .\Output\CHECKSUM.txt -DestinationPath .\LiveEnhancementSuiteSetup-x64.zip
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        Compress-Archive -LiteralPath .\Output\LiveEnhancementSuiteSetup-x64.exe, .\Output\CHECKSUM.txt -DestinationPath .\LiveEnhancementSuiteSetup-x64.zip
+        Remove-Item chksm
+        CertUtil -hashfile "Live Enhancement Suite.exe" SHA256 | Select -SkipLast 1 >> chksm
+        (Get-Content chksm) -join ' ' >> CHECKSUM.txt
+        Compress-Archive -LiteralPath "Live Enhancement Suite.exe", CHECKSUM.txt -DestinationPath .\LiveEnhancementSuitePortable-x64.zip
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v1-release
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: .\LiveEnhancementSuiteSetup-x64.zip
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: .\LiveEnhancementSuiteSetup-x64.zip
         asset_name: LiveEnhancementSuiteSetup-x64.zip
-        asset_content_type: application/zip
+        tag: ${{ github.ref }}
+        overwrite: true
+    - name: Upload portable version to release
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: .\LiveEnhancementSuitePortable-x64.zip
+        asset_name: LiveEnhancementSuitePortable-x64.zip
+        tag: ${{ github.ref }}
+        overwrite: true
+  
